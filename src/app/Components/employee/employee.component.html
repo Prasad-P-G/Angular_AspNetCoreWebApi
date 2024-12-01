@@ -1,0 +1,154 @@
+<div class="container-fluid">
+  <div class="row p-2 bg-info">
+    <div class="row">
+      <div class="col-6">
+        <h3>Employee List</h3>
+      </div>
+      <div class="col-6 text-end">
+        <button class="btn btn-warning" (click)="openModel()">
+          Add Employee
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Mobile</th>
+        <th>Age</th>
+        <th>Salary</th>
+        <th>Status</th>
+        <th class="text-center">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (employee of employees; track $index) {
+      <tr>
+        <td>{{ employee.name }}</td>
+        <td>{{ employee.email }}</td>
+        <td>{{ employee.mobile }}</td>
+        <td>{{ employee.age }}</td>
+        <td>{{ employee.salary }}</td>
+        <td>{{ employee.status }}</td>
+        <td class="text-center">
+          <button class="btn btn-primary">Edit</button> ||
+          <button class="btn btn-danger">Delete</button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal -->
+<div id="employeeModel" #employeeModel class="modal">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header bg-info">
+        <h4 class="modal-title">Add Employee</h4>
+        <!-- <button type="button" class="close" data-dismiss="modal">
+          &times;
+        </button> -->
+      </div>
+
+      <form [formGroup]="employeeformGroup" (ngSubmit)="on_Submit()">
+        <div class="modal-body">
+          <!-- Name -->
+          <div class="row">
+            <div class="col-12">
+              <input
+                type="text"
+                name="name"
+                formControlName="name"
+                placeholder="Name"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <!-- Email & Mobile -->
+          <div class="row mt-2">
+            <div class="col-6">
+              <input
+                type="text"
+                name="email"
+                placeholder="Email"
+                formControlName="email"
+                class="form-control"
+              />
+            </div>
+            <div class="col-6">
+              <input
+                type="text"
+                name="mobile"
+                placeholder="Mobile"
+                formControlName="mobile"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <!-- Salary & Age -->
+          <div class="row mt-2">
+            <div class="col-6">
+              <input
+                type="number"
+                name="age"
+                placeholder="Age"
+                formControlName="age"
+                class="form-control"
+              />
+            </div>
+            <div class="col-6">
+              <input
+                type="number"
+                name="salary"
+                placeholder="Salary"
+                formControlName="salary"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <!-- Active status -->
+          <div class="row mt-2">
+            <div class="row col-3">
+              <div class="form-group form-check">
+                <input
+                  type="checkbox"
+                  name="status"
+                  placeholder="Status"
+                  formControlName="status"
+                  class="form-check-input"
+                />
+                <label>Active ?</label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button
+            type="submit"
+            [disabled]="this.employeeformGroup.invalid"
+            class="btn btn-primary"
+            data-dismiss="modal"
+          >
+            Save
+          </button>
+          <button
+            type="button"
+            class="btn btn-danger"
+            data-dismiss="modal"
+            (click)="closeModel()"
+          >
+            Close
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
